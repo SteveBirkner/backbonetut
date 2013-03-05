@@ -16,15 +16,30 @@
                 
             </div>
         </div>
-        
-        
-        
-        
-        
-        
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+        
+        <script>
+            var Router = Backbone.Router.extend({
+                routes: {
+                    '': 'home'
+                }
+            });
+            var router = new Router();
+            router.on('route:home', function() {
+               console.log('We have loaded the page'); 
+            });
+            
+            Backbone.history.start();
+        </script>
+        
+        
+        
+        
+        
+        
+        
         
         
         
