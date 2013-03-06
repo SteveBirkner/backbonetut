@@ -25,10 +25,27 @@
         
         <script>
             
+        $.ajaxPrefilter( function( options, originalOptions, jqXHR ){
+            options.url = 'http://backbonejs-beginner.herokuapp.com' + options.url;
+        });
+            
+            
+        var Users =Backbone.Collection.extend({
+            url: '/users'
+        });    
+            
+            
         var UserList = Backbone.View.extend({
             el: '.page',
             render: function() {
-                this.$el.html('Content');
+                var that = this;
+                var users = new Users();
+                users.fetch({
+                    success: function () {
+                        that.$el.html('Content');
+                    }
+                })
+                
             }
         });
         
