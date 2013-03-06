@@ -84,7 +84,8 @@
          
          var Router = Backbone.Router.extend({
             routes: {
-                '': 'home'
+                '': 'home',
+                'new': 'editUser'
             
             }
             
@@ -95,6 +96,10 @@
          var router = new Router();
          router.on('route:home', function () {
             userList.render();
+            
+         });
+           router.on('route:editUser', function () {
+            console.log('edit');
             
          });
          
