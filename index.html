@@ -24,9 +24,14 @@
         
         
         <script>
-         var UserList = Backbone.View.extend({
             
-         });
+        var UserList = Backbone.View.extend({
+            el: '.page',
+            render: function() {
+                this.$el.html('Content');
+            }
+        });
+        
          
          var Router = Backbone.Router.extend({
             routes: {
@@ -36,10 +41,11 @@
             
          });
          
-         var router = new Router();
+         var userList = new UserList();
          
+         var router = new Router();
          router.on('route:home', function () {
-            console.log('Loaded the page');
+            userList.render();
             
          });
          
