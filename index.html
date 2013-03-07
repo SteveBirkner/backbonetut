@@ -17,12 +17,18 @@
             </div>
         </div>
         
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
+        
+        
         <script type="text/template" id="user-list-template">
-            <a href="#/new" class="btn bth-primary">New user</a>
-            <hr />
+            <a href="#/new" class="btn bth-primary">New User</a>
+              
             
             
-            <table class="table striped">
+             <table class="table striped">
+          
                 <thead>
                         
                     <tr>    
@@ -47,7 +53,7 @@
         </script>
         
         <script type="text/template" id="edit-user-template">
-            <from class="edit-user-form">
+            <form class="edit-user-form">
                 <legend>Create user</legend>
                 <label>First Name</label>
                 <input type="text" name="firstname" />
@@ -56,16 +62,14 @@
                 <label>Age</label>
                 <input type="text" name="age" />
                 <hr />
-                <button type="Submit" class="btn">Create User</button>
-                
+           
+                <button type="submit" class="btn">Create</button>
+             </form>    
             
             
         </script>
         
         
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
         
      
         
@@ -75,7 +79,23 @@
         $.ajaxPrefilter( function( options, originalOptions, jqXHR ){
             options.url = 'http://backbonejs-beginner.herokuapp.com' + options.url;
         });
-            
+        
+        $.fn.serializeObject = function() {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+      };
+                      
             
         var Users =Backbone.Collection.extend({
             url: '/users'
@@ -98,12 +118,25 @@
         });
         
         var EditUser = Backbone.View.extend({
-            el: '.page' ,
+            el: '.page',
             render: function () {
                 var template = _.template($('#edit-user-template').html(), {});
                 this.$el.html(template);
+            },
+            events: {
+                
+                'submit .edit-user-form' : 'saveUser'
+                
+                
+            },
+            saveUser: function (ev) {
+                console.log('in saveUser');
+               var userDetails = $(ev.currentTarget).serializeObject();
+               console.log(userDetails);
+               return false;
+            
             }
-        });
+        })
         
          
          var Router = Backbone.Router.extend({
