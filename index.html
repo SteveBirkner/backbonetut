@@ -97,10 +97,16 @@
       };
                       
             
-        var Users =Backbone.Collection.extend({
+        var Users = Backbone.Collection.extend({
             url: '/users'
         });    
             
+       var User = Backbone.Model.extend({
+            urlRoot: '/users'
+        });    
+            
+        
+        
             
         var UserList = Backbone.View.extend({
             el: '.page',
@@ -132,6 +138,12 @@
             saveUser: function (ev) {
             
                var userDetails = $(ev.currentTarget).serializeObject();
+               var user = new User();
+               user.save(userDetails, {
+                success: function(user) {
+                    console.log(user);
+                }
+               })
                console.log(userDetails);
                return false;
             
