@@ -141,7 +141,7 @@
                var user = new User();
                user.save(userDetails, {
                 success: function(user) {
-                    console.log(user);
+                    router.navigate('', {trigger: true});
                 }
                })
                console.log(userDetails);
