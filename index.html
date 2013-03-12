@@ -64,9 +64,9 @@
                 <hr />
                 <% if(user) { %>
                 
-                    <input type="hidden" value="<%= user.id %>" />
+                    <input type="hidden" name="id" value="<%= user.id %>" />
                     
-                <% } %>
+                <% }; %>
                 <button type="submit" class="btn"><%= user ? 'Update ' : 'Create ' %></button>
              </form>    
             
